@@ -28,7 +28,7 @@ const filterOptions = createFilterOptions({
  * @param list of objects
  */
 export const QuickSearch = ({ list }: IQuickSearch) => {
-  const [value, setValue] = useState(list[1])
+  const [value, setValue] = useState(list[0])
   return (
     <AutocompleteWrapper>
       <Autocomplete
