@@ -14,6 +14,12 @@ import { ItemsProvider } from './context/itemsContext';
 const LOCAL_STG_OBJ_LIST_KEY = 'objectList'
 const LOCAL_STG_REL_LIST_KEY = 'relationList'
 
+/**
+ * Main app, used to initialize local storage and context provider
+ *  and manage url's of the app with React Router
+ * @author Ignacio
+ * @version 1.0.0
+ */
 function App() {
 
   // Initialize local storage
