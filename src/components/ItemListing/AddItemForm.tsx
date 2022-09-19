@@ -31,7 +31,7 @@ type AddItemProps = {
 export const AddItemForm = ({
   itemType
 }: AddItemProps) => {
-  const { objectList, relationList, addObject, addRelation } =
+  const { objectList, addObject, addRelation } =
     useContext(ItemsContext);
   const isObject = itemType === "object";
   const isRelation = itemType === "relation";
@@ -103,8 +103,7 @@ export const AddItemForm = ({
   };
 
   return (
-    <>       
-
+    <>
       {isObject && (
         <AddObjWrapper>
           <FormField>

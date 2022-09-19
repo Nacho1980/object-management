@@ -1,6 +1,6 @@
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { STD_ICON_SIZE, ICON_BG_COLOR, S_ICON_SIZE } from '../../../theme';
+import { STD_ICON_SIZE, ICON_BG_COLOR } from '../../../theme';
 import { ActionSpan } from "./styles"
 
 type EditableItemActionsProps = {  

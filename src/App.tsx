@@ -51,7 +51,7 @@ function App() {
       setRelationList(newRelList)
       localStorage.setItem('relationList', JSON.stringify(newRelList));
     }, 
-    [objectList]
+    [objectList, relationList]
   );
   const editObject = useCallback(
     (newObject: IObject) => {
