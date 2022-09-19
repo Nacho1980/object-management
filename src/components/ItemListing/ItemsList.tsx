@@ -32,7 +32,7 @@ export const ItemsList = ({ itemType }: CRUDProps) => {
           No objects, click on add to create a new one
         </EmptyListWarning>
       )}
-      {isRelation && relationList.length === 0 && (
+      {isRelation && objectList && objectList.length > 0 && relationList.length === 0 && (
         <EmptyListWarning>
           No relations, click on add to create a new one
         </EmptyListWarning>

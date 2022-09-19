@@ -65,6 +65,10 @@ export const AddRelSpan = styled.span`
   margin: 0 ${LARGE_SPACING} 0 ${LARGE_SPACING};
 `
 
+export const SeparatedText = styled.span`
+  margin-left: ${DEFAULT_SPACING};
+`
+
 export const ListWrapper = styled.div`
   margin: ${LARGE_SPACING};
 `

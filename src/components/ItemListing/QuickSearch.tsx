@@ -8,9 +8,12 @@ import {
   QuickSearchBoldField,
   QuickSearchField,
   SearchResultWrapper,
+  EmptyListWarning,
+  SeparatedText,
 } from "./styles";
 import { useState } from "react";
 import { Object } from "../common/Object/Obj";
+import { Link } from "react-router-dom";
 
 interface IQuickSearch {
   list: Array<IObject>;
@@ -63,6 +66,10 @@ export const QuickSearch = ({ list }: IQuickSearch) => {
           type={value.type}
         />)}
       </SearchResultWrapper>
+      {(!list || (list.length === 0)) && <EmptyListWarning>
+          No objects, to create a new one navigate to the 
+          <SeparatedText><Link to="/objects" style={{ textDecoration: "none" }}> Objects page </Link></SeparatedText>
+        </EmptyListWarning>}
     </AutocompleteWrapper>
   );
 };

@@ -14,13 +14,12 @@ export const HeaderDiv = styled.div`
   padding: ${LARGE_SPACING};
   color: ${TEXT_CONTRAST};
   text-align: center;
-`;
+`
 
 export const LinkGrid = styled.div`
   display: flex;
   justify-content: space-evenly;
-  //background-color: ${SECONDARY_BG_COLOR};
-`;
+`
 
 export const LinkText = styled.span`
   color: ${props => props.current ? ICON_BG_COLOR : SECONDARY_BG_COLOR};
@@ -29,7 +28,7 @@ export const LinkText = styled.span`
   :hover {
     color: ${TEXT_CONTRAST};
   }
-`;
+`
 
 export const IconWrapper = styled.div`
   display: flex;

@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import ItemsContext from "../../context/itemsContext";
 import { objectTypes, createNewId } from "../../utils";
 import { Dropdown, ObjectDropdown } from "../common/Dropdown/Dropdown";
@@ -9,7 +10,9 @@ import {
   AddObjWrapper,
   AddRelWrapper,
   AddRelSpan,
-  AddButtonWrapper
+  AddButtonWrapper,
+  EmptyListWarning,
+  SeparatedText
 } from "./styles";
 
 type AddItemProps = {
@@ -32,6 +35,8 @@ export const AddItemForm = ({
     useContext(ItemsContext);
   const isObject = itemType === "object";
   const isRelation = itemType === "relation";
+  const [showObjErrors, setShowObjErrors] = useState<boolean>(false)
+  const [showRelErrors, setShowRelErrors] = useState<boolean>(false)
   const [objectName, setObjectName] = useState<string>("");
   const [objectDescription, setObjectDescription] = useState<string>("");
   const [objectType, setObjectType] = useState<
@@ -43,11 +48,12 @@ export const AddItemForm = ({
       value: type,
     };
   });
-  const addObjectDisabled = !objectName || !objectDescription || !objectType;
+  //const addObjectDisabled = !objectName || !objectDescription || !objectType;
   const resetObjFields = () => {
     setObjectName("")
     setObjectDescription("")
     setObjectType("desk")
+    setShowObjErrors(false)
   }
   // Create an object and pass it to the onAdd function
   const addObj = () => {
@@ -61,6 +67,8 @@ export const AddItemForm = ({
       };
       addObject(obj);
       resetObjFields()
+    } else {
+      setShowObjErrors(true)
     }
   };
 
@@ -69,12 +77,13 @@ export const AddItemForm = ({
     objectList && objectList.length > 0 ? objectList[0].id : 0;
   const [selectedObject1, setSelectedObject1] = useState<number>(firstItemId);
   const [selectedObject2, setSelectedObject2] = useState<number>(firstItemId);
-  const addRelationDisabled =
-    selectedObject1 === 0 || selectedObject2 === 0 || !relationName;
+  //const addRelationDisabled =
+  //  selectedObject1 === 0 || selectedObject2 === 0 || !relationName;
   const resetRelFields = () => {
     setRelationName("")
     setSelectedObject1(firstItemId)
     setSelectedObject2(firstItemId)
+    setShowRelErrors(false)
   }
   // Create a relation and pass it to the onAdd function
   const addRel = () => {
@@ -88,6 +97,8 @@ export const AddItemForm = ({
       };
       addRelation(rel);
       resetRelFields()
+    } else {
+      setShowRelErrors(true)
     }
   };
 
@@ -112,6 +123,7 @@ export const AddItemForm = ({
               }
               value={objectName}
               placeholder={"Object name"}
+              error={showObjErrors && !objectName}
             />
           </FormField>
           <FormField>
@@ -122,12 +134,13 @@ export const AddItemForm = ({
               }
               value={objectDescription}
               placeholder={"Object description"}
+              error={showObjErrors && !objectDescription}
             />
           </FormField>
           <FormField>
             <AddButton
               id="addObjectButton"
-              disabled={addObjectDisabled}
+              //disabled={addObjectDisabled}
               onClick={() => addObj()}
             >
               Add
@@ -135,7 +148,7 @@ export const AddItemForm = ({
           </FormField>
         </AddObjWrapper>
       )}
-      {isRelation && (
+      {isRelation && objectList && objectList.length > 0 && (
         <AddRelWrapper>
           <FormField>
             <TextInput
@@ -145,6 +158,7 @@ export const AddItemForm = ({
               }
               value={relationName}
               placeholder={"Relation name"}
+              error={showRelErrors && !relationName}
             />
           </FormField>
           <FormField>
@@ -169,7 +183,7 @@ export const AddItemForm = ({
             <AddButtonWrapper>
               <AddButton
                 id="addRelationButton"
-                disabled={addRelationDisabled}
+                //disabled={addRelationDisabled}
                 onClick={() => addRel()}
               >
                 Add
@@ -177,6 +191,12 @@ export const AddItemForm = ({
             </AddButtonWrapper>
           </FormField>
         </AddRelWrapper>
+      )}
+      {isRelation && (!objectList || objectList.length === 0) && (
+        <EmptyListWarning>
+          To create a relation objects must be created previously in the
+          <SeparatedText><Link to="/objects" style={{ textDecoration: "none" }}> Objects page </Link></SeparatedText>
+        </EmptyListWarning>
       )}
     </>
   );

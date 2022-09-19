@@ -13,6 +13,7 @@ export const WARN_COLOR = '#FFA500'
 export const ICON_BG_COLOR = '#0BA5D3'
 export const EVEN_ROW_COLOR = '#ADD8E6'
 export const DEFAULT_BG_COLOR =  '#FFFFFF'
+export const ERROR_COLOR = '#FF0000'
 
 // SIZES AND SPACING
 export const INPUT_FONT_SIZE = '18px'
