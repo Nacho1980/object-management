@@ -1,7 +1,13 @@
+import { Alert, Snackbar } from "@mui/material";
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import ItemsContext from "../../context/itemsContext";
-import { objectTypes, createNewId, objectExists, relationExists } from "../../utils";
+import {
+  objectTypes,
+  createNewId,
+  objectExists,
+  relationExists,
+} from "../../utils";
 import { Dropdown, ObjectDropdown } from "../common/Dropdown/Dropdown";
 import { TextInput } from "../common/TextInput/TextInput";
 import {
@@ -29,11 +35,16 @@ type AddItemProps = {
  * @returns
  */
 export const AddItemForm = ({ itemType }: AddItemProps) => {
-  const { objectList, relationList, addObject, addRelation } = useContext(ItemsContext);
+  // Common context and state for objects and relations
+  const { objectList, relationList, addObject, addRelation } =
+    useContext(ItemsContext);
   const isObject = itemType === "object";
   const isRelation = itemType === "relation";
+  const [showAlert, setShowAlert] = useState<boolean>(false);
   const [showObjErrors, setShowObjErrors] = useState<boolean>(false);
   const [showRelErrors, setShowRelErrors] = useState<boolean>(false);
+
+  // Fields to create object
   const [objectName, setObjectName] = useState<string>("");
   const [objectDescription, setObjectDescription] = useState<string>("");
   const [objectType, setObjectType] = useState<
@@ -45,7 +56,6 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
       value: type,
     };
   });
-  //const addObjectDisabled = !objectName || !objectDescription || !objectType;
   const resetObjFields = () => {
     setObjectName("");
     setObjectDescription("");
@@ -55,8 +65,13 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
 
   // Create an object and pass it to the onAdd function
   const addObj = () => {
-    const existsAlready = objectExists(objectList, objectName, objectDescription, objectType)
-    const allFieldsFilled = objectName && objectDescription && objectType
+    const existsAlready = objectExists(
+      objectList,
+      objectName,
+      objectDescription,
+      objectType
+    );
+    const allFieldsFilled = objectName && objectDescription && objectType;
     if (allFieldsFilled && !existsAlready) {
       const newId = createNewId();
       const obj = {
@@ -71,27 +86,32 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
       setShowObjErrors(true);
     } else if (existsAlready) {
       // Already exists in the list
-      window.alert("Object already exists")
+      setShowAlert(true);
     }
   };
 
+  // Fields to create relation
   const [relationName, setRelationName] = useState<string>("");
   const firstItemId =
     objectList && objectList.length > 0 ? objectList[0].id : 0;
   const [selectedObject1, setSelectedObject1] = useState<number>(firstItemId);
   const [selectedObject2, setSelectedObject2] = useState<number>(firstItemId);
-  //const addRelationDisabled =
-  //  selectedObject1 === 0 || selectedObject2 === 0 || !relationName;
   const resetRelFields = () => {
     setRelationName("");
     setSelectedObject1(firstItemId);
     setSelectedObject2(firstItemId);
     setShowRelErrors(false);
   };
+
   // Create a relation and pass it to the onAdd function
   const addRel = () => {
-    const existsAlready = relationExists(relationList, relationName, selectedObject1, selectedObject2)
-    const allFieldsFilled = relationName && selectedObject1 && selectedObject2
+    const existsAlready = relationExists(
+      relationList,
+      relationName,
+      selectedObject1,
+      selectedObject2
+    );
+    const allFieldsFilled = relationName && selectedObject1 && selectedObject2;
     if (allFieldsFilled && !existsAlready) {
       const newId = createNewId();
       const rel = {
@@ -106,12 +126,13 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
       setShowRelErrors(true);
     } else if (existsAlready) {
       // Already exists in the list
-      window.alert("Relation already exists")
+      setShowAlert(true);
     }
   };
 
   return (
     <>
+      {/* Add Object */}
       {isObject && (
         <AddObjWrapper>
           <FormField>
@@ -155,6 +176,8 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
           </FormField>
         </AddObjWrapper>
       )}
+      
+      {/* Add Relation */}
       {isRelation && objectList && objectList.length > 0 && (
         <AddRelWrapper>
           <FormField>
@@ -199,6 +222,8 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
           </FormField>
         </AddRelWrapper>
       )}
+
+      {/* Warning to be shown if no object created before attempting to create relation */}
       {isRelation && (!objectList || objectList.length === 0) && (
         <EmptyListWarning>
           To create a relation objects must be created previously in the
@@ -210,6 +235,20 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
           </SeparatedText>
         </EmptyListWarning>
       )}
+
+      {/* Snackbar to show warnings */}
+      <Snackbar
+        autoHideDuration={3000}
+        open={showAlert}
+        ContentProps={{
+          "aria-describedby": "message-id",
+        }}
+        anchorOrigin={{ vertical:'top', horizontal:'center' }}
+        onClose={() => setShowAlert(false)}>
+          <Alert severity="error">
+            {isObject ? "Object already exists!" : "Relation already exists!"}
+          </Alert>
+        </Snackbar>
     </>
   );
 };

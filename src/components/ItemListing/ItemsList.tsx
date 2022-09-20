@@ -28,6 +28,7 @@ export const ItemsList = ({ itemType }: CRUDProps) => {
   const listId = isObject ? 'objectList' : 'relationList'
   return (
     <div id={listId}>
+      {/* Warnings when starting the app with no objects or relations */}
       {isObject && objectList.length === 0 && (
         <EmptyListWarning>
           No objects, click on add to create a new one
@@ -38,6 +39,8 @@ export const ItemsList = ({ itemType }: CRUDProps) => {
           No relations, click on add to create a new one
         </EmptyListWarning>
       )}
+
+      {/* List of editable and non-editable objects */}
       <ListWrapper>
         {isObject &&
           objectList.map((obj, index) => {
@@ -76,7 +79,9 @@ export const ItemsList = ({ itemType }: CRUDProps) => {
                 </Row>
               )
             }
-            })}
+          })
+        }
+        {/* List of editable and non-editable relations */}
         {isRelation &&
           relationList.map((rel, idx) => {
             const even = (idx % 2) === 0
@@ -114,7 +119,8 @@ export const ItemsList = ({ itemType }: CRUDProps) => {
                 </Row>
               )
             }
-          })}
+          })
+        }
       </ListWrapper>
     </div>
   );
