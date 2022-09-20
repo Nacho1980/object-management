@@ -17,7 +17,7 @@ import { EditableRelationWrapper, StyledField } from "./styles";
  * @param {Function} onCancel - Function to cancel the changes
  */
 
-export const EditableRelation = ({id, name, obj1Id, obj2Id, onAccept, onCancel}: IEditableRelation) =>  {
+export const EditableRelation = ({id, dataTestId, name, obj1Id, obj2Id, onAccept, onCancel}: IEditableRelation) =>  {
   const {
     editRelation,
     objectList
@@ -36,6 +36,7 @@ export const EditableRelation = ({id, name, obj1Id, obj2Id, onAccept, onCancel}:
       <StyledField>
         <TextInput
           id={"editRelationName"}
+          data-testid={`${dataTestId}-name`}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRelationName(e.target.value)}
           value={relationName}
           placeholder={'Relation name'}
@@ -53,6 +54,7 @@ export const EditableRelation = ({id, name, obj1Id, obj2Id, onAccept, onCancel}:
       <StyledField>
         <ObjectDropdown
           id={'editRelationObj1'}
+          data-testid={`${dataTestId}-obj1`}
           value={selectedObj1}
           onChange={setSelectedObj1}
           objectArray={objectList}
@@ -61,6 +63,7 @@ export const EditableRelation = ({id, name, obj1Id, obj2Id, onAccept, onCancel}:
       <StyledField>
         <ObjectDropdown
           id={'editRelationObj2'}
+          data-testid={`${dataTestId}-obj2`}
           value={selectedObj2}
           onChange={setSelectedObj2}
           objectArray={objectList}

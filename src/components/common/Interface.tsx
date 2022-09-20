@@ -1,5 +1,6 @@
 export interface IBaseItem {
   id: number;
+  dataTestId?: string;
   name: string;
 }
 export interface IObject extends IBaseItem {

@@ -42,6 +42,7 @@ const ConfirmDialog = ({
       <DialogContent>{content}</DialogContent>
       <DialogActions>
         <Button
+          id="cancelConfirmAction"
           variant="contained"
           onClick={() => setOpen(false)}
           color="secondary"
@@ -49,6 +50,7 @@ const ConfirmDialog = ({
           No
         </Button>
         <Button
+          id="acceptConfirmAction"
           variant="contained"
           onClick={() => {
             setOpen(false);

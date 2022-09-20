@@ -19,7 +19,7 @@ import ItemsContext from '../../../context/itemsContext';
  * @param {Function} onAccept - Function to accept the changes
  * @param {Function} onCancel - Function to cancel the changes
  */
-export const EditableObject = ({id, name, description, type, onAccept, onCancel}: IEditableObject) =>  {
+export const EditableObject = ({id, dataTestId, name, description, type, onAccept, onCancel}: IEditableObject) =>  {
   const {
     editObject
   } = useContext(ItemsContext);
@@ -41,6 +41,7 @@ export const EditableObject = ({id, name, description, type, onAccept, onCancel}
       <div>
         <Dropdown
           id={'editObjectType'}
+          data-testid={`${dataTestId}-type`}
           value={objectType}
           onChange={setObjectType}
           options={objectTypeOptions}
@@ -49,6 +50,7 @@ export const EditableObject = ({id, name, description, type, onAccept, onCancel}
       <StyledField>
         <TextInput
             id={"editObjectName"}
+            data-testid={`${dataTestId}-name`}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setObjectName(e.target.value)}
             placeholder={'Object name'}
             value={objectName}
@@ -66,6 +68,7 @@ export const EditableObject = ({id, name, description, type, onAccept, onCancel}
       <StyledField>
         <TextInput
             id={"editObjectDescription"}
+            data-testid={`${dataTestId}-description`}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setObjectDescription(e.target.value)}
             value={objectDescription}
             placeholder={'Object description'}

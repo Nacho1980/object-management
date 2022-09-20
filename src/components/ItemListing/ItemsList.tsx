@@ -52,6 +52,7 @@ export const ItemsList = ({ itemType }: CRUDProps) => {
                 <Row even={even} key={obj.id} id={rowId} data-testid='row'>
                   <EditableObject
                     id={obj.id}
+                    dataTestId={rowId}
                     name={obj.name}
                     description={obj.description}
                     type={obj.type}
@@ -66,6 +67,7 @@ export const ItemsList = ({ itemType }: CRUDProps) => {
                   <ObjectFieldsWrapper>
                     <Object
                       id={obj.id}
+                      dataTestId={rowId}
                       name={obj.name}
                       description={obj.description}
                       type={obj.type}
@@ -92,6 +94,7 @@ export const ItemsList = ({ itemType }: CRUDProps) => {
                 <Row even={even} key={rel.id} id={rowId} data-testid='row'>
                   <EditableRelation
                     id={rel.id}
+                    dataTestId={rowId}
                     name={rel.name}
                     obj1Id={rel.obj1Id}
                     obj2Id={rel.obj2Id}
@@ -106,6 +109,7 @@ export const ItemsList = ({ itemType }: CRUDProps) => {
                   <RelationFieldsWrapper>
                     <Relation
                       id={rel.id}
+                      dataTestId={rowId}
                       name={rel.name}
                       obj1Id={rel.obj1Id}
                       obj2Id={rel.obj2Id}

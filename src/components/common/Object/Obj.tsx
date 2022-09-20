@@ -12,13 +12,13 @@ import { getIconForObjectType } from '../../../utils';
  * @param {string} type - Type of the object, can only take predefined values
  */
 
-export const Object = ({name, description, type}: IObject) =>  {
+export const Object = ({dataTestId, name, description, type}: IObject) =>  {
   const iconType = getIconForObjectType(type)
   return(
     <>
-      <IconWrapper>{iconType}</IconWrapper>
-      <StyledField>{name}</StyledField>
-      <StyledField>{description}</StyledField>
+      <IconWrapper data-testid={`${dataTestId}-icon`}>{iconType}</IconWrapper>
+      <StyledField data-testid={`${dataTestId}-name`}>{name}</StyledField>
+      <StyledField data-testid={`${dataTestId}-description`}>{description}</StyledField>
     </>
   )
 }

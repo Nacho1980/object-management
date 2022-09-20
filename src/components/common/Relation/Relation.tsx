@@ -12,7 +12,7 @@ import { StyledField, MarginSpan } from "./styles";
  * @param {number} obj2Id - Second object in the relation
  */
 
-export const Relation = ({name, obj1Id, obj2Id}: IRelation) =>  {
+export const Relation = ({dataTestId, name, obj1Id, obj2Id}: IRelation) =>  {
   const {objectList} = useContext(ItemsContext)
   const obj1 = objectList.find(o => o.id === obj1Id)
   const obj2 = objectList.find(o => o.id === obj2Id)
@@ -20,14 +20,14 @@ export const Relation = ({name, obj1Id, obj2Id}: IRelation) =>  {
   const obj2TypeIcon = obj2?.type && getIconForObjectType(obj2.type)
   return (
   <>
-    <StyledField>{name}</StyledField>
+    <StyledField data-testid={`${dataTestId}-name`}>{name}</StyledField>
     <StyledField>
-      <MarginSpan>{obj1TypeIcon}</MarginSpan>
-      <MarginSpan>{obj1?.name}</MarginSpan>
+      <MarginSpan data-testid={`${dataTestId}-obj1Icon`}>{obj1TypeIcon}</MarginSpan>
+      <MarginSpan data-testid={`${dataTestId}-obj1Name`}>{obj1?.name}</MarginSpan>
     </StyledField>
     <StyledField>
-      <MarginSpan>{obj2TypeIcon}</MarginSpan>
-      <MarginSpan>{obj2?.name}</MarginSpan>
+      <MarginSpan data-testid={`${dataTestId}-obj2Icon`}>{obj2TypeIcon}</MarginSpan>
+      <MarginSpan data-testid={`${dataTestId}-obj2Name`}>{obj2?.name}</MarginSpan>
     </StyledField>
   </>
 )}
