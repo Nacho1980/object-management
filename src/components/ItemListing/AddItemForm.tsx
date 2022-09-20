@@ -1,5 +1,5 @@
 import { Alert, Snackbar } from "@mui/material";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ItemsContext from "../../context/itemsContext";
 import {
@@ -99,8 +99,8 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
   const [selectedObject2, setSelectedObject2] = useState<number>(firstItemId);
   const resetRelFields = () => {
     setRelationName("");
-    setSelectedObject1(firstItemId);
-    setSelectedObject2(firstItemId);
+    setSelectedObject1(objectList && objectList.length > 0 ? objectList[0].id : 0);
+    setSelectedObject2(objectList && objectList.length > 0 ? objectList[0].id : 0);
     setShowRelErrors(false);
   };
 
@@ -112,19 +112,27 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
       selectedObject1,
       selectedObject2
     );
-    const allFieldsFilled = relationName && selectedObject1 && selectedObject2;
+    const allFieldsFilled = relationName && (selectedObject1 > 0) && (selectedObject2 > 0);
     if (!allFieldsFilled) {
       setShowRelErrors(true);
     } else if (existsAlready) {
       // Already exists in the list
       setShowAlert(true);
     } else {
+      const existsSelObj1 = objectList.some(obj => obj.id === selectedObject1)
+      const existsSelObj2 = objectList.some(obj => obj.id === selectedObject2)
+      if (!existsSelObj1) {
+        setSelectedObject1(objectList[0].id)
+      }
+      if (!existsSelObj2) {
+        setSelectedObject2(objectList[0].id)
+      }
       const newId = createNewId();
       const rel = {
         id: newId,
         name: relationName,
-        obj1Id: selectedObject1 || 0,
-        obj2Id: selectedObject2 || 0,
+        obj1Id: existsSelObj1 ? selectedObject1 : objectList[0].id,
+        obj2Id: existsSelObj2 ? selectedObject2 : objectList[0].id,
       };
       addRelation(rel);
       resetRelFields();
