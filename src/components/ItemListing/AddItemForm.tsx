@@ -72,7 +72,12 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
       objectType
     );
     const allFieldsFilled = objectName && objectDescription && objectType;
-    if (allFieldsFilled && !existsAlready) {
+    if (!allFieldsFilled) {
+      setShowObjErrors(true);
+    } else if (existsAlready) {
+      // Already exists in the list
+      setShowAlert(true);
+    } else {
       const newId = createNewId();
       const obj = {
         id: newId,
@@ -82,12 +87,8 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
       };
       addObject(obj);
       resetObjFields();
-    } else if (!allFieldsFilled && !existsAlready) {
-      setShowObjErrors(true);
-    } else if (existsAlready) {
-      // Already exists in the list
-      setShowAlert(true);
     }
+
   };
 
   // Fields to create relation
@@ -112,7 +113,12 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
       selectedObject2
     );
     const allFieldsFilled = relationName && selectedObject1 && selectedObject2;
-    if (allFieldsFilled && !existsAlready) {
+    if (!allFieldsFilled) {
+      setShowRelErrors(true);
+    } else if (existsAlready) {
+      // Already exists in the list
+      setShowAlert(true);
+    } else {
       const newId = createNewId();
       const rel = {
         id: newId,
@@ -122,11 +128,6 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
       };
       addRelation(rel);
       resetRelFields();
-    } else if (!allFieldsFilled && !existsAlready) {
-      setShowRelErrors(true);
-    } else if (existsAlready) {
-      // Already exists in the list
-      setShowAlert(true);
     }
   };
 
