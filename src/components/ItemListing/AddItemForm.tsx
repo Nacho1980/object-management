@@ -62,6 +62,23 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
     setObjectType("desk");
     setShowObjErrors(false);
   };
+  // Fields to create relation
+  const [relationName, setRelationName] = useState<string>("");
+  const firstItemId =
+    objectList && objectList.length > 0 ? objectList[0].id : 0;
+  const [selectedObject1, setSelectedObject1] = useState<number>(firstItemId);
+  const [selectedObject2, setSelectedObject2] = useState<number>(firstItemId);
+  const resetRelFields = () => {
+    setRelationName("");
+    setSelectedObject1(objectList && objectList.length > 0 ? objectList[0].id : 0);
+    setSelectedObject2(objectList && objectList.length > 0 ? objectList[0].id : 0);
+    setShowRelErrors(false);
+  };
+  useEffect(() => {
+    // Keep the references to the objectList updated
+    objectList.length > 0 && setSelectedObject1(objectList[0].id)
+    objectList.length > 0 && setSelectedObject2(objectList[0].id)
+  }, [objectList])
 
   // Create an object and pass it to the onAdd function
   const addObj = () => {
@@ -91,19 +108,6 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
 
   };
 
-  // Fields to create relation
-  const [relationName, setRelationName] = useState<string>("");
-  const firstItemId =
-    objectList && objectList.length > 0 ? objectList[0].id : 0;
-  const [selectedObject1, setSelectedObject1] = useState<number>(firstItemId);
-  const [selectedObject2, setSelectedObject2] = useState<number>(firstItemId);
-  const resetRelFields = () => {
-    setRelationName("");
-    setSelectedObject1(objectList && objectList.length > 0 ? objectList[0].id : 0);
-    setSelectedObject2(objectList && objectList.length > 0 ? objectList[0].id : 0);
-    setShowRelErrors(false);
-  };
-
   // Create a relation and pass it to the onAdd function
   const addRel = () => {
     const existsAlready = relationExists(
@@ -119,20 +123,12 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
       // Already exists in the list
       setShowAlert(true);
     } else {
-      const existsSelObj1 = objectList.some(obj => obj.id === selectedObject1)
-      const existsSelObj2 = objectList.some(obj => obj.id === selectedObject2)
-      if (!existsSelObj1) {
-        setSelectedObject1(objectList[0].id)
-      }
-      if (!existsSelObj2) {
-        setSelectedObject2(objectList[0].id)
-      }
       const newId = createNewId();
       const rel = {
         id: newId,
         name: relationName,
-        obj1Id: existsSelObj1 ? selectedObject1 : objectList[0].id,
-        obj2Id: existsSelObj2 ? selectedObject2 : objectList[0].id,
+        obj1Id: selectedObject1,
+        obj2Id: selectedObject2,
       };
       addRelation(rel);
       resetRelFields();
