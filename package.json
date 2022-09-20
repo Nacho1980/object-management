@@ -48,6 +48,7 @@
     ]
   },
   "devDependencies": {
-    "@playwright/experimental-ct-react": "^1.25.2"
+    "@playwright/experimental-ct-react": "^1.25.2",
+    "@playwright/test": "^1.25.2"
   }
 }

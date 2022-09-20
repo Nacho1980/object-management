@@ -58,7 +58,7 @@ export const QuickSearch = ({ list }: IQuickSearch) => {
           <TextField {...params} label="Object search"/>
         )}
       />
-      <SearchResultWrapper>
+      <SearchResultWrapper id='search-result'>
         {value && (<Object
           id={value.id}
           name={value.name}

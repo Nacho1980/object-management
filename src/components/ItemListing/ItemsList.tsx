@@ -25,8 +25,9 @@ export const ItemsList = ({ itemType }: CRUDProps) => {
   const [editId, setEditId] = useState(-1)
   const isObject = itemType === 'object'
   const isRelation = itemType === 'relation'
+  const listId = isObject ? 'objectList' : 'relationList'
   return (
-    <div>
+    <div id={listId}>
       {isObject && objectList.length === 0 && (
         <EmptyListWarning>
           No objects, click on add to create a new one
@@ -42,9 +43,10 @@ export const ItemsList = ({ itemType }: CRUDProps) => {
           objectList.map((obj, index) => {
             const even = (index % 2) === 0
             const editing = (obj.id === editId)
+            const rowId = 'row' + index
             if (editing) {
               return (
-                <Row even={even} key={obj.id}>
+                <Row even={even} key={obj.id} id={rowId} data-testid='row'>
                   <EditableObject
                     id={obj.id}
                     name={obj.name}
@@ -57,7 +59,7 @@ export const ItemsList = ({ itemType }: CRUDProps) => {
               )
             } else {
               return (
-                <Row even={even} key={obj.id}>
+                <Row even={even} key={obj.id} id={rowId} data-testid='row'>
                   <ObjectFieldsWrapper>
                     <Object
                       id={obj.id}
@@ -79,9 +81,10 @@ export const ItemsList = ({ itemType }: CRUDProps) => {
           relationList.map((rel, idx) => {
             const even = (idx % 2) === 0
             const editing = (rel.id === editId)
+            const rowId = 'row' + idx
             if (editing) {
               return (
-                <Row even={even} key={rel.id}>
+                <Row even={even} key={rel.id} id={rowId} data-testid='row'>
                   <EditableRelation
                     id={rel.id}
                     name={rel.name}
@@ -94,7 +97,7 @@ export const ItemsList = ({ itemType }: CRUDProps) => {
               )
             } else {
               return (
-                <Row even={even} key={rel.id}>
+                <Row even={even} key={rel.id} id={rowId} data-testid='row'>
                   <RelationFieldsWrapper>
                     <Relation
                       id={rel.id}
