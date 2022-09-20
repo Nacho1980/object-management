@@ -73,6 +73,7 @@ export const ItemsList = ({ itemType }: CRUDProps) => {
                       type={obj.type}
                     />
                     <ItemActions 
+                      itemName={obj.name}
                       itemType={itemType}
                       itemId={obj.id}
                       onEdit={() => setEditId(obj.id)}
@@ -115,6 +116,7 @@ export const ItemsList = ({ itemType }: CRUDProps) => {
                       obj2Id={rel.obj2Id}
                     />
                     <ItemActions 
+                      itemName={rel.name}
                       itemType={itemType}
                       itemId={rel.id}
                       onEdit={() => setEditId(rel.id)}

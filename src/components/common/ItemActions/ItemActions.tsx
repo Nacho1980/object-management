@@ -7,6 +7,7 @@ import ItemsContext from "../../../context/itemsContext";
 import ConfirmDialog from "../Confirm/ConfirmDialog";
 
 type ItemActionsProps = {
+  itemName: string;
   itemType: string;
   itemId: number;
   onEdit: () => void;
@@ -22,7 +23,7 @@ type ItemActionsProps = {
  * @param onEdit the action to perform to access edit mode
  * @returns
  */
-export const ItemActions = ({ itemType, itemId, onEdit }: ItemActionsProps) => {
+export const ItemActions = ({ itemName, itemType, itemId, onEdit }: ItemActionsProps) => {
   const [openConfirm, setOpenConfirm] = useState(false);
   const isObject = itemType === "object";
   const { deleteObject, deleteRelation } = useContext(ItemsContext);
@@ -39,7 +40,7 @@ export const ItemActions = ({ itemType, itemId, onEdit }: ItemActionsProps) => {
     <div>
       <ConfirmDialog
         title="Confirm"
-        content="Are you sure you want to delete?"
+        content={`Are you sure you want to delete ${itemName}?`}
         open={openConfirm}
         setOpen={setOpenConfirm}
         onConfirm={onDelete}
