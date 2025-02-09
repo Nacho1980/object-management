@@ -1,3 +1,7 @@
+#Object management app: 
+A simple React demo for a job interview. It makes use of React styled components.
+Tests are implemented with Playwright
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
