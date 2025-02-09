@@ -1,4 +1,4 @@
-#Object management app: 
+# Object management app: 
 A simple React demo for a job interview. It makes use of React styled components.
 Tests are implemented with Playwright
 
