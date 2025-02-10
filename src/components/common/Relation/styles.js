@@ -8,14 +8,26 @@ import {
 
 export const StyledField = styled.div`
   display: flex;
+  flex: 1;
+  align-items: center;
   justify-content: center;
+  width: 100%;
   // margin-left: ${DEFAULT_SPACING};
   font-size: ${DEFAULT_FONT_SIZE};
   color: ${TEXT_COLOR};
 `;
 
+export const FlexSpan = styled.span`
+  display: flex;
+  flex: 1;
+`;
 export const MarginSpan = styled.span`
   margin-left: ${DEFAULT_SPACING};
+  flex: 1;
+`;
+export const IconSpan = styled.span`
+  margin-left: ${DEFAULT_SPACING};
+  flex: 0;
 `;
 
 export const EditableRelationWrapper = styled.div.attrs({

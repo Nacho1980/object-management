@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import {
+  DEFAULT_SPACING,
   ICON_BG_COLOR,
   LARGE_FONT,
   LARGE_SPACING,
@@ -32,7 +33,7 @@ export const HeaderDiv = styled.div.attrs({
   flex-direction: column;
   align-items: center;
   text-wrap: wrap;
-  margin-bottom: ${LARGE_SPACING};
+  margin-bottom: ${DEFAULT_SPACING};
   background-color: ${MAIN_BG_COLOR};
   padding: ${LARGE_SPACING};
   color: ${TEXT_CONTRAST};

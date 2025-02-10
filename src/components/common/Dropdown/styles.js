@@ -17,6 +17,7 @@ export const StyledSelect = styled.select.attrs({
   height: ${SELECT_HEIGHT};
   padding: ${SELECT_PADDING};
   background-color: ${SELECT_BG_COLOR};
+  width: 100%;
   :focus {
     outline: none;
   }

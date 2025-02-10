@@ -11,6 +11,7 @@ import {
   INPUT_HEIGHT,
   LARGE_SPACING,
   MAIN_BG_COLOR,
+  SMALL_SPACING,
   TEXT_COLOR,
   WARN_COLOR,
 } from "../../theme";
@@ -54,7 +55,8 @@ export const AddObjWrapper = styled.div.attrs({
 })`
   display: flex;
   flex-direction: row; /* Default to row for larger screens */
-  gap: ${LARGE_SPACING};
+  // gap: ${DEFAULT_SPACING};
+  margin-bottom: 2rem;
 
   /* Media query for mobile devices */
   @media (max-width: 768px) {
@@ -67,6 +69,7 @@ export const AddRelWrapper = styled.div.attrs({
   className: "add-rel-wrapper",
 })`
   display: flex;
+  margin-bottom: 2rem;
   flex-direction: row; /* Default to row for larger screens */
 
   /* Media query for mobile devices */
@@ -79,6 +82,8 @@ export const AddRelWrapper = styled.div.attrs({
 export const AddRelSpan = styled.span.attrs({
   className: "add-rel-span",
 })`
+  display: flex;
+  flex: 1;
   margin: 0 ${LARGE_SPACING} 0 ${LARGE_SPACING};
 `;
 
@@ -97,18 +102,22 @@ export const ListWrapper = styled.div.attrs({
   gap: ${DEFAULT_SPACING};
 `;
 
-export const ObjectFieldsWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 2fr 6fr 1fr;
-  grid-gap: ${LARGE_SPACING};
+export const ObjectFieldsWrapper = styled.div.attrs({
+  className: "object-fields-wrapper",
+})`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: ${LARGE_SPACING};
 `;
 
 export const RelationFieldsWrapper = styled.div.attrs({
-  className: "relation'fields-wrapper",
+  className: "relation-fields-wrapper",
 })`
-  display: grid;
-  grid-template-columns: 4fr 3fr 3fr 1fr;
-  grid-gap: ${LARGE_SPACING};
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: ${LARGE_SPACING};
 `;
 
 export const AutocompleteWrapper = styled.div.attrs({
@@ -136,17 +145,30 @@ export const EmptyListWarning = styled.div`
   color: ${WARN_COLOR};
 `;
 
+export const FormFieldNonFlex = styled.div.attrs({
+  className: "form-field",
+})`
+  display: flex;
+  gap: 1rem;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: ${SMALL_SPACING};
+  flex: 0;
+`;
+
 export const FormField = styled.div.attrs({
   className: "form-field",
 })`
   display: flex;
+  gap: 1rem;
   max-width: 100%;
   box-sizing: border-box;
-  margin: ${DEFAULT_SPACING};
+  margin: ${SMALL_SPACING};
+  flex: 1;
 
   > span {
     margin: unset;
-    margin-right: ${DEFAULT_SPACING};
+    // margin-right: ${DEFAULT_SPACING};
   }
 `;
 

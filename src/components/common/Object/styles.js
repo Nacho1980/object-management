@@ -5,8 +5,22 @@ import {
   LARGE_SPACING,
   TEXT_COLOR,
 } from "../../../theme";
+export const StyledField = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  // margin-left: ${DEFAULT_SPACING};
+  font-size: ${DEFAULT_FONT_SIZE};
+  color: ${TEXT_COLOR};
+`;
 
-export const StyledField = styled.div.attrs({
+export const FlexSpan = styled.span`
+  display: flex;
+  flex: 1;
+`;
+export const StyledFieldObj = styled.div.attrs({
   className: "styled-field",
 })`
   // margin-left: ${DEFAULT_SPACING};
@@ -24,5 +38,7 @@ export const EditableObjectWrapper = styled.div.attrs({
 
 export const IconWrapper = styled.div`
   display: flex;
+  align-items: center;
   justify-content: center;
+  flex: 0;
 `;

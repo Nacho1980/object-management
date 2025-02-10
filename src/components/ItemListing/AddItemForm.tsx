@@ -1,23 +1,24 @@
 import { Alert, Snackbar } from "@mui/material";
-import { useState, useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ItemsContext from "../../context/itemsContext";
 import {
-  objectTypes,
   createNewId,
   objectExists,
+  objectTypes,
   relationExists,
 } from "../../utils";
 import { Dropdown, ObjectDropdown } from "../common/Dropdown/Dropdown";
 import { TextInput } from "../common/TextInput/TextInput";
 import {
   AddButton,
-  FormField,
-  AddObjWrapper,
-  AddRelWrapper,
-  AddRelSpan,
   AddButtonWrapper,
+  AddObjWrapper,
+  AddRelSpan,
+  AddRelWrapper,
   EmptyListWarning,
+  FormField,
+  FormFieldNonFlex,
   SeparatedText,
 } from "./styles";
 
@@ -70,15 +71,19 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
   const [selectedObject2, setSelectedObject2] = useState<number>(firstItemId);
   const resetRelFields = () => {
     setRelationName("");
-    setSelectedObject1(objectList && objectList.length > 0 ? objectList[0].id : 0);
-    setSelectedObject2(objectList && objectList.length > 0 ? objectList[0].id : 0);
+    setSelectedObject1(
+      objectList && objectList.length > 0 ? objectList[0].id : 0
+    );
+    setSelectedObject2(
+      objectList && objectList.length > 0 ? objectList[0].id : 0
+    );
     setShowRelErrors(false);
   };
   useEffect(() => {
     // Keep the references to the objectList updated
-    objectList.length > 0 && setSelectedObject1(objectList[0].id)
-    objectList.length > 0 && setSelectedObject2(objectList[0].id)
-  }, [objectList])
+    objectList.length > 0 && setSelectedObject1(objectList[0].id);
+    objectList.length > 0 && setSelectedObject2(objectList[0].id);
+  }, [objectList]);
 
   // Create an object and pass it to the onAdd function
   const addObj = () => {
@@ -105,7 +110,6 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
       addObject(obj);
       resetObjFields();
     }
-
   };
 
   // Create a relation and pass it to the onAdd function
@@ -116,7 +120,8 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
       selectedObject1,
       selectedObject2
     );
-    const allFieldsFilled = relationName && (selectedObject1 > 0) && (selectedObject2 > 0);
+    const allFieldsFilled =
+      relationName && selectedObject1 > 0 && selectedObject2 > 0;
     if (!allFieldsFilled) {
       setShowRelErrors(true);
     } else if (existsAlready) {
@@ -170,7 +175,7 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
               error={showObjErrors && !objectDescription}
             />
           </FormField>
-          <FormField>
+          <FormFieldNonFlex>
             <AddButton
               id="addObjectButton"
               //disabled={addObjectDisabled}
@@ -178,10 +183,10 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
             >
               Add
             </AddButton>
-          </FormField>
+          </FormFieldNonFlex>
         </AddObjWrapper>
       )}
-      
+
       {/* Add Relation */}
       {isRelation && objectList && objectList.length > 0 && (
         <AddRelWrapper>
@@ -214,7 +219,7 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
               />
             </AddRelSpan>
           </FormField>
-          <FormField>
+          <FormFieldNonFlex>
             <AddButtonWrapper>
               <AddButton
                 id="addRelationButton"
@@ -224,7 +229,7 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
                 Add
               </AddButton>
             </AddButtonWrapper>
-          </FormField>
+          </FormFieldNonFlex>
         </AddRelWrapper>
       )}
 
@@ -248,12 +253,13 @@ export const AddItemForm = ({ itemType }: AddItemProps) => {
         ContentProps={{
           "aria-describedby": "message-id",
         }}
-        anchorOrigin={{ vertical:'top', horizontal:'center' }}
-        onClose={() => setShowAlert(false)}>
-          <Alert severity="error">
-            {isObject ? "Object already exists!" : "Relation already exists!"}
-          </Alert>
-        </Snackbar>
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        onClose={() => setShowAlert(false)}
+      >
+        <Alert severity="error">
+          {isObject ? "Object already exists!" : "Relation already exists!"}
+        </Alert>
+      </Snackbar>
     </>
   );
 };
