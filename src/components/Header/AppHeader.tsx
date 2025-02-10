@@ -1,9 +1,15 @@
-import { HeaderDiv, LinkText, LinkGrid, IconWrapper } from "./styles";
+import HomeIcon from "@mui/icons-material/Home";
+import SchemaIcon from "@mui/icons-material/Schema";
+import WidgetsIcon from "@mui/icons-material/Widgets";
 import { Link, useLocation } from "react-router-dom";
-import HomeIcon from '@mui/icons-material/Home';
-import SchemaIcon from '@mui/icons-material/Schema';
-import WidgetsIcon from '@mui/icons-material/Widgets';
 import { S_ICON_SIZE } from "../../theme";
+import {
+  HeaderDiv,
+  IconWrapper,
+  LinkGrid,
+  LinkText,
+  TitleWrapper,
+} from "./styles";
 
 /**
  * Header for the application.
@@ -15,24 +21,42 @@ export const AppHeader = () => {
   const currentScreen = location.pathname.substring(1);
   return (
     <HeaderDiv>
-      <h1>Object Management System (OMS)</h1>
+      <TitleWrapper>
+        <h1>Object Management System (OMS)</h1>
+      </TitleWrapper>
       <nav>
         <LinkGrid>
-          <Link to="/" style={{ textDecoration: "none" }} id='linkHome'>
+          <Link to="/" style={{ textDecoration: "none" }} id="linkHome">
             <LinkText current={currentScreen === ""}>
-              <IconWrapper><HomeIcon sx={{ fontSize: S_ICON_SIZE, cursor: 'pointer' }} /></IconWrapper>
+              <IconWrapper>
+                <HomeIcon sx={{ fontSize: S_ICON_SIZE, cursor: "pointer" }} />
+              </IconWrapper>
               Home
             </LinkText>
           </Link>
-          <Link to="/objects" style={{ textDecoration: "none" }} id='linkObjects'>
-            <LinkText current={currentScreen === 'objects'}>
-              <IconWrapper><WidgetsIcon sx={{ fontSize: S_ICON_SIZE, cursor: 'pointer' }} /></IconWrapper>
+          <Link
+            to="/objects"
+            style={{ textDecoration: "none" }}
+            id="linkObjects"
+          >
+            <LinkText current={currentScreen === "objects"}>
+              <IconWrapper>
+                <WidgetsIcon
+                  sx={{ fontSize: S_ICON_SIZE, cursor: "pointer" }}
+                />
+              </IconWrapper>
               Objects
             </LinkText>
           </Link>
-          <Link to="/relations" style={{ textDecoration: "none" }} id='linkRelations'>
-            <LinkText current={currentScreen === 'relations'}>
-              <IconWrapper><SchemaIcon sx={{ fontSize: S_ICON_SIZE, cursor: 'pointer' }} /></IconWrapper>
+          <Link
+            to="/relations"
+            style={{ textDecoration: "none" }}
+            id="linkRelations"
+          >
+            <LinkText current={currentScreen === "relations"}>
+              <IconWrapper>
+                <SchemaIcon sx={{ fontSize: S_ICON_SIZE, cursor: "pointer" }} />
+              </IconWrapper>
               Relations
             </LinkText>
           </Link>
